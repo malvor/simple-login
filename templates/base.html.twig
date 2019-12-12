@@ -25,6 +25,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('login') }}">Login</a>
                             </li>
+                            <li>
+                                <a class="nav-link" href="{{ path('registration') }}">Sign Up</a>
+                            </li>
                         {% endif %}
                     </ul>
 
@@ -32,6 +35,13 @@
             </div>
         </nav>
         <div class="container">
+            <div class="col-md-12">
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{type}}">{{message}}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}{% endblock %}
