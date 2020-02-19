@@ -51,7 +51,9 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return $this->roles;
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
 
     public function getPassword(): string
@@ -87,9 +89,9 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    public function setRoles(): void
+    public function setRoles(array $roles): void
     {
-
+        $this->roles = $roles;
     }
 
     public function addRole(string $role)

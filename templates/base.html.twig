@@ -13,11 +13,21 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 {% if app.user %}
-                    <a class="navbar-brand" href="#">{{ app.user.username }}</a>
+                    <a class="navbar-brand" href="{{ path('home') }}">{{ app.user.username }}</a>
                 {% endif %}
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         {% if app.user %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('admin.dashboard') }}">Admin</a>
+                                </li>
+                            {% endif %}
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app.profile') }}">Profile</a>
+                                </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('logout') }}">Logout</a>
                             </li>

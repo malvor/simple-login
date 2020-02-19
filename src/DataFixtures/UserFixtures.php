@@ -43,11 +43,31 @@ class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        $user = new User('user', 'user@test.com');
-        $password = $this->encoder->encodePassword($user, 'secret');
-        $user->setPassword($password);
+        $users = [
+            [
+                'username'  => 'user',
+                'email'     => 'user@test.com',
+                'roles'     => ['ROLE_USER']
+            ],
+            [
+                'username'  => 'admin',
+                'email'     => 'admin@test.com',
+                'roles'     => ['ROLE_ADMIN']
+            ],
+            [
+                'username'  => 'superadmin',
+                'email'     => 'superadmin@test.com',
+                'roles'     => ['ROLE_SUPERADMIN']
+            ]
+        ];
+        foreach ($users as $userToCreate) {
+            $user = new User($userToCreate['username'], $userToCreate['email']);
+            $password = $this->encoder->encodePassword($user, 'secret');
+            $user->setPassword($password);
+            $user->setRoles($userToCreate['roles']);
 
-        $this->entityManager->persist($user);
+            $this->entityManager->persist($user);
+        }
         $this->entityManager->flush();
     }
 }

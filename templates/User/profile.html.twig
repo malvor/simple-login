@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="mt-5">User profile: {{ app.user.username }}</h1>
+            <div class="col-lg-6">
+                <ul>
+                    <li>{{ app.user.username }}</li>
+                    <li>{{ app.user.email }}</li>
+                    <li>
+                        {% for role in app.user.roles %}
+                            {{ role }}
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
