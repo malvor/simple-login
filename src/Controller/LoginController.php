@@ -12,24 +12,28 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * Class LoginController
  * @package App\Controller
  */
-class LoginController extends Controller {
+class LoginController extends Controller
+{
 
-	/**
-	 * @Route("/login", name="login")
-	 */
-	public function login(Request $request, AuthenticationUtils $authenticationUtils) : Response {
-		$errors = $authenticationUtils->getLastAuthenticationError();
-		$lastUsername = $authenticationUtils->getLastUsername();
+    /**
+     * @Route("/login", name="login")
+     */
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
+    {
+        $errors = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-		return $this->render('User/login.html.twig', [
-			'errors' => $errors,
-			'username' => $lastUsername
-		]);
-	}
+        return $this->render('User/login.html.twig', [
+            'errors' => $errors,
+            'username' => $lastUsername
+        ]);
+    }
 
-	/**
-	 * @Route("/logout", name="logout")
-	 */
-	public function logout() : Response {}
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout(): Response
+    {
+    }
 
 }
