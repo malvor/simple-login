@@ -1,19 +1,9 @@
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
         App\Entity\User:
             algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-#        in_memory:
-#            memory:
-#                users:
-#                    malvor:
-#                        password: security
-#                        roles: 'ROLE_USER'
-#                    admin:
-#                        password: password
-#                        roles: 'ROLE_ADMIN'
         db_provider:
             entity:
                 class: App\Entity\User
