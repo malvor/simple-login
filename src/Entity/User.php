@@ -8,69 +8,94 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface  {
+class User implements UserInterface
+{
 
-	/**
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-	/**
-	 * @ORM\Column(type="string", length=128, unique=true)
-	 */
-	private $username;
+    /**
+     * @ORM\Column(type="string", length=128, unique=true)
+     */
+    private $username;
 
-	/**
-	 * @ORM\Column(type="string", length=128, unique=true)
-	 */
-	private $email;
+    /**
+     * @ORM\Column(type="string", length=128, unique=true)
+     */
+    private $email;
 
-	/**
-	 * @ORM\Column(type="string", length=4096)
-	 */
-	private $password;
+    /**
+     * @ORM\Column(type="string", length=4096)
+     */
+    private $password;
 
-	/**
-	 * User constructor.
-	 * @param string $username
-	 * @param string $email
-	 */
-	public function __construct(string $username, string $email) {
-		$this->username = $username;
-		$this->email = $email;
-	}
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles;
 
-	public function getRoles() {
-		return ['ROLE_USER'];
-	}
+    /**
+     * User constructor.
+     * @param string $username
+     * @param string $email
+     */
+    public function __construct(string $username, string $email)
+    {
+        $this->username = $username;
+        $this->email = $email;
+    }
 
-	public function getPassword() : string {
-		return $this->password;
-	}
+    public function getRoles()
+    {
+        return $this->roles;
+    }
 
-	public function getSalt() {
-		// TODO: Implement getSalt() method.
-	}
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
 
-	public function getUsername() {
-		return $this->username;
-	}
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
 
-	public function getEmail() {
-		return $this->email;
-	}
+    public function getUsername()
+    {
+        return $this->username;
+    }
 
-	public function eraseCredentials() {
-		// TODO: Implement eraseCredentials() method.
-	}
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-	/**
-	 * @param string $password
-	 */
-	public function setPassword(string $password) {
-		$this->password = $password;
-	}
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
+    }
+
+    public function setRoles(): void
+    {
+
+    }
+
+    public function addRole(string $role)
+    {
+        if (false === in_array($role, $this->roles)) {
+            $this->roles[] = $role;
+        }
+    }
 }
